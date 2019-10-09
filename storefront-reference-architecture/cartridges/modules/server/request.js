@@ -105,13 +105,11 @@ function getCurrentLocale(locale, currency) {
  * @returns {Object} local instance of address object
  */
 function getAddressObject(address) {
-    var addressObject = null;
     if (address) {
-        addressObject = {
+        return {
             address1: address.address1,
             address2: address.address2,
             city: address.city,
-            companyName: address.companyName,
             countryCode: {
                 displayValue: address.countryCode.displayValue,
                 value: address.countryCode.value
@@ -121,17 +119,10 @@ function getAddressObject(address) {
             ID: address.ID,
             phone: address.phone,
             postalCode: address.postalCode,
-            stateCode: address.stateCode,
-            postBox: address.postBox,
-            salutation: address.salutation,
-            secondName: address.secondName,
-            suffix: address.suffix,
-            suite: address.suite,
-            title: address.title,
-            raw: address
+            stateCode: address.stateCode
         };
     }
-    return addressObject;
+    return null;
 }
 
 /**
@@ -230,9 +221,6 @@ function setCurrency(request, session) {
     if (session.currency
         && currentCountry
         && session.currency.currencyCode !== currentCountry.currencyCode
-        && (!currentCountry.alternativeCurrencyCodes
-            || currentCountry.alternativeCurrencyCodes.indexOf(session.currency.currencyCode) < 0
-        )
     ) {
         session.setCurrency(currency.getCurrency(currentCountry.currencyCode));
     }

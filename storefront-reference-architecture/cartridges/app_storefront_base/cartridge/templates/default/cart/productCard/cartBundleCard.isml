@@ -26,12 +26,6 @@
         </div>
 
         <isinclude template="cart/productCard/cartProductCardProductPrice" />
-
-        <isif condition="${!lineItem.isBonusProductLineItem}"/>
-            <div class="hidden-md-down">
-                <isinclude template="components/deleteButton" />
-            </div>
-        </isif>
     </div>
 
 </div>

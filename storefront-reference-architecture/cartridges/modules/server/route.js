@@ -70,11 +70,7 @@ Route.prototype.getRoute = function () {
             if (me.res.redirectUrl) {
                 // if there's a pending redirect, break the chain
                 me.emit('route:Redirect', me.req, me.res);
-                if (me.res.redirectStatus) {
-                    me.res.base.redirect(me.res.redirectUrl, me.res.redirectStatus);
-                } else {
-                    me.res.base.redirect(me.res.redirectUrl);
-                }
+                me.res.base.redirect(me.res.redirectUrl);
                 return;
             }
 

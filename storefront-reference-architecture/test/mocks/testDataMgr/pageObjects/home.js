@@ -29,7 +29,7 @@ export const navBar = '#sg-navbar-collapse';
 export const signInButton = '.fa-sign-in';
 export const signInButtonIpad = '.hidden-md-up .fa-sign-in';
 
-const basePath = 'RefArch/home';
+const basePath = '/home';
 
 function createCssNthProductTile(idx) {
     return productTile + ':nth-child(' + idx + ')';

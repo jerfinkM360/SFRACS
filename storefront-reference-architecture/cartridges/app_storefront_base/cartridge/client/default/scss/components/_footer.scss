@@ -1,12 +1,11 @@
 @import "collapsibleItem";
-@import "toastMessage";
 
 footer {
     background-color: $gray-200;
     padding-top: 1.25em; /* 20/16 */
     padding-bottom: 1.25em;
 
-    h2 {
+    h3 {
         font-size: $font-size-base;
         margin-bottom: 0;
         line-height: 2.5em; /* 40/16 */
@@ -18,7 +17,7 @@ footer {
     }
 
     .social {
-        h2 {
+        h3 {
             margin-top: 0;
         }
 
@@ -28,11 +27,6 @@ footer {
     .copyright,
     .social {
         margin-top: 1.25em;
-    }
-
-    .footer-container .footer-item.collapsible-xs button {
-        font-family: 'Dosis', sans-serif;
-        padding: 0;
     }
 
     .social-links {
@@ -73,7 +67,7 @@ footer {
                 display: none;
             }
 
-            h2 {
+            h3 {
                 @include clearfix;
 
                 &::after {
@@ -126,6 +120,10 @@ footer {
     @include media-breakpoint-down(xs) {
         border-bottom: 1px solid $dark-gray;
     }
+
+    h3 {
+        cursor: pointer;
+    }
 }
 
 #consent-tracking {
@@ -134,12 +132,4 @@ footer {
             margin: 0.5em;
         }
     }
-}
-
-.email-signup-message {
-    @include toast-message();
-}
-
-.email-signup-alert {
-    @include toast-alert();
 }

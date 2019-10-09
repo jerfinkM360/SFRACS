@@ -1,7 +1,6 @@
 'use strict';
 
-var preferences = require('*/cartridge/config/preferences');
-var DEFAULT_MAX_ORDER_QUANTITY = preferences.maxOrderQty || 10;
+var DEFAULT_MAX_ORDER_QUANTITY = 9;
 
 module.exports = function (object, product, quantity) {
     Object.defineProperty(object, 'selectedQuantity', {

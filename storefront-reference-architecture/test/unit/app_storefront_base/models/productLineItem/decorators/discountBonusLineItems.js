@@ -2,7 +2,6 @@
 
 var assert = require('chai').assert;
 var proxyquire = require('proxyquire').noCallThru().noPreserveCache();
-var sinon = require('sinon');
 var ArrayList = require('../../../../../mocks/dw.util.Collection');
 
 var bonusDiscountLineItem = {
@@ -17,7 +16,6 @@ var bonusDiscountLineItem = {
     }])
 };
 
-var getCurrentBasketStub = sinon.stub();
 
 var currentBasketMock = {
     bonusDiscountLineItems: new ArrayList([bonusDiscountLineItem])
@@ -29,7 +27,9 @@ describe('discount bonus line item decorator', function () {
     });
     var discountBonusLineItems = proxyquire('../../../../../../cartridges/app_storefront_base/cartridge/models/productLineItem/decorators/discountBonusLineItems', {
         'dw/order/BasketMgr': {
-            getCurrentBasket: getCurrentBasketStub
+            getCurrentOrNewBasket: function () {
+                return currentBasketMock;
+            }
         },
         '*/cartridge/scripts/util/collections': collections,
         'dw/web/URLUtils': {
@@ -47,7 +47,6 @@ describe('discount bonus line item decorator', function () {
     it('should create a property on the passed in object called discountLineItems', function () {
         var object = {};
         var UUIDMock = 'someBonusProductLineItemUUID';
-        getCurrentBasketStub.returns(currentBasketMock);
         discountBonusLineItems(object, UUIDMock);
 
         assert.equal(object.discountLineItems.length, 1);
@@ -62,7 +61,6 @@ describe('discount bonus line item decorator', function () {
     it('should create a property on the passed in object called discountLineItems when UUID and bonusProductLineItemUUID are not a match ', function () {
         var object = {};
         var UUIDMock = 'someUUID';
-        getCurrentBasketStub.returns(currentBasketMock);
         discountBonusLineItems(object, UUIDMock);
 
         assert.equal(object.discountLineItems.length, 0);
@@ -70,20 +68,11 @@ describe('discount bonus line item decorator', function () {
 
     it('should create a property on the passed in object called discountLineItems when the max items have not been selected', function () {
         var object = {};
-        getCurrentBasketStub.returns(currentBasketMock);
         bonusDiscountLineItem.maxBonusItems = 2;
         bonusDiscountLineItem.quantityValue = 0;
         var UUIDMock = 'someBonusProductLineItemUUID';
         discountBonusLineItems(object, UUIDMock);
 
         assert.equal(object.discountLineItems.length, 1);
-    });
-    it('should create a property on the passed in object when getCurrentBasket returns null', function () {
-        var object = {};
-        var UUIDMock = 'someUUID';
-        getCurrentBasketStub.returns(null);
-        discountBonusLineItems(object, UUIDMock);
-
-        assert.equal(object.discountLineItems.length, 0);
     });
 });

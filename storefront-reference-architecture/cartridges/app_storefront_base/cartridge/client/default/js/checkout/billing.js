@@ -180,6 +180,8 @@ function clearCreditCardForm() {
     $('select[name$="_expirationMonth"]').val('');
     $('select[name$="_expirationYear"]').val('');
     $('input[name$="_securityCode"]').val('');
+    $('input[name$="_email"]').val('');
+    $('input[name$="_phone"]').val('');
 }
 
 module.exports = {

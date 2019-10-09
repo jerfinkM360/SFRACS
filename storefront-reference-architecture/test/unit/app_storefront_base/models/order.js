@@ -127,22 +127,18 @@ describe('Order', function () {
             quantity: {
                 value: 1
             },
-
             items: [
                 {
-                    product: {
-                        images: {
-                            small: [
-                                {
-                                    url: 'url to small image',
-                                    alt: 'url to small image',
-                                    title: 'url to small image'
-                                }
-                            ]
-                        }
+                    images: {
+                        small: [
+                            {
+                                url: 'url to small image',
+                                alt: 'url to small image',
+                                title: 'url to small image'
+                            }
+                        ]
                     }
                 }
-
             ]
         }];
 

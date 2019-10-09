@@ -1,6 +1,5 @@
 'use strict';
 var base = require('./base');
-var focusHelper = require('../components/focus');
 
 /**
  * Generates the modal window on the first call.
@@ -12,15 +11,13 @@ function getModalHtmlElement() {
     }
     var htmlString = '<!-- Modal -->'
         + '<div class="modal fade" id="quickViewModal" role="dialog">'
-        + '<span class="enter-message sr-only" ></span>'
         + '<div class="modal-dialog quick-view-dialog">'
         + '<!-- Modal content-->'
         + '<div class="modal-content">'
         + '<div class="modal-header">'
-        + '    <a class="full-pdp-link" href=""></a>'
+        + '    <a class="full-pdp-link" href="">View Full Details</a>'
         + '    <button type="button" class="close pull-right" data-dismiss="modal">'
-        + '        <span aria-hidden="true">&times;</span>'
-        + '        <span class="sr-only"> </span>'
+        + '        &times;'
         + '    </button>'
         + '</div>'
         + '<div class="modal-body"></div>'
@@ -54,27 +51,25 @@ function parseHtml(html) {
 
 /**
  * replaces the content in the modal window on for the selected product variation.
+ * @param {string} productUrl - url to be used for going to the product details page
  * @param {string} selectedValueUrl - url to be used to retrieve a new product model
  */
-function fillModalElement(selectedValueUrl) {
+function fillModalElement(productUrl, selectedValueUrl) {
     $('.modal-body').spinner().start();
     $.ajax({
         url: selectedValueUrl,
         method: 'GET',
-        dataType: 'json',
-        success: function (data) {
-            var parsedHtml = parseHtml(data.renderedTemplate);
+        dataType: 'html',
+        success: function (html) {
+            var parsedHtml = parseHtml(html);
 
             $('.modal-body').empty();
+            // $('.modal-body').html(html);
             $('.modal-body').html(parsedHtml.body);
             $('.modal-footer').html(parsedHtml.footer);
-            $('.full-pdp-link').text(data.quickViewFullDetailMsg);
-            $('#quickViewModal .full-pdp-link').attr('href', data.productUrl);
-            $('#quickViewModal .size-chart').attr('href', data.productUrl);
-            $('#quickViewModal .modal-header .close .sr-only').text(data.closeButtonText);
-            $('#quickViewModal .enter-message').text(data.enterDialogMessage);
+            $('#quickViewModal .full-pdp-link').attr('href', productUrl);
+            $('#quickViewModal .size-chart').attr('href', productUrl);
             $('#quickViewModal').modal('show');
-
             $.spinner().stop();
         },
         error: function () {
@@ -88,28 +83,19 @@ module.exports = {
         $('body').on('click', '.quickview', function (e) {
             e.preventDefault();
             var selectedValueUrl = $(this).closest('a.quickview').attr('href');
+            var productUrl = selectedValueUrl.replace('Product-ShowQuickView', 'Product-Show');
             $(e.target).trigger('quickview:show');
             getModalHtmlElement();
-            fillModalElement(selectedValueUrl);
+            fillModalElement(productUrl, selectedValueUrl);
         });
     },
-    focusQuickview: function () {
-        $('body').on('shown.bs.modal', '#quickViewModal', function () {
-            $('#quickViewModal .close').focus();
-        });
-    },
-    trapQuickviewFocus: function () {
-        $('body').on('keydown', '#quickViewModal', function (e) {
-            var focusParams = {
-                event: e,
-                containerSelector: '#quickViewModal',
-                firstElementSelector: '.full-pdp-link',
-                lastElementSelector: '.add-to-cart-global',
-                nextToLastElementSelector: '.modal-footer .quantity-select'
-            };
-            focusHelper.setTabNextFocus(focusParams);
-        });
-    },
+    colorAttribute: base.colorAttribute,
+    selectAttribute: base.selectAttribute,
+    removeBonusProduct: base.removeBonusProduct,
+    selectBonusProduct: base.selectBonusProduct,
+    enableBonusProductSelection: base.enableBonusProductSelection,
+    showMoreBonusProducts: base.showMoreBonusProducts,
+    addBonusProductsToCart: base.addBonusProductsToCart,
     availability: base.availability,
     addToCart: base.addToCart,
     showSpinner: function () {

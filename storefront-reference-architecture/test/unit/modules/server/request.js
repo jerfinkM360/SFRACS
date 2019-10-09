@@ -20,8 +20,7 @@ var Request = proxyquire('../../../../cartridges/modules/server/request', {
     '*/cartridge/config/countries': [
         {
             'id': 'en_US',
-            'currencyCode': 'USD',
-            'alternativeCurrencyCodes': ['CAD']
+            'currencyCode': 'USD'
         }, {
             'id': 'en_GB',
             'currencyCode': 'GBP'
@@ -107,14 +106,7 @@ function createFakeRequest(overrides) {
                     lastName: 'Snow',
                     ID: 'Home',
                     postalCode: '02125',
-                    stateCode: 'MA',
-                    postBox: '2134',
-                    salutation: null,
-                    secondName: null,
-                    suffix: null,
-                    suite: '302',
-                    title: 'Dr'
-
+                    stateCode: 'MA'
                 }
             }
         },
@@ -251,7 +243,6 @@ describe('request', function () {
 
     it('should contain correct current customer address book and properties', function () {
         var req = new Request(createFakeRequest(), createFakeRequest().customer, createFakeRequest().session);
-        var expectedResult = createFakeRequest();
         assert.equal(
             req.currentCustomer.addressBook.preferredAddress.address1,
             '15 South Point Drive'
@@ -285,41 +276,13 @@ describe('request', function () {
             'Home'
         );
         assert.equal(
-            req.currentCustomer.addressBook.preferredAddress.stateCode,
-            'MA'
-        );
-        assert.equal(
             req.currentCustomer.addressBook.preferredAddress.postalCode,
             '02125'
         );
         assert.equal(
-            req.currentCustomer.addressBook.preferredAddress.postBox,
-            '2134'
+            req.currentCustomer.addressBook.preferredAddress.stateCode,
+            'MA'
         );
-        assert.equal(
-            req.currentCustomer.addressBook.preferredAddress.salutation,
-            null
-        );
-        assert.equal(
-            req.currentCustomer.addressBook.preferredAddress.secondName,
-            null
-        );
-        assert.equal(
-            req.currentCustomer.addressBook.preferredAddress.suffix,
-            null
-        );
-        assert.equal(
-            req.currentCustomer.addressBook.preferredAddress.suite,
-            '302'
-        );
-        assert.equal(
-            req.currentCustomer.addressBook.preferredAddress.title,
-            'Dr'
-        );
-        assert.deepEqual(
-            req.currentCustomer.addressBook.preferredAddress.raw,
-            expectedResult.customer.addressBook.preferredAddress
-         );
     });
 
     it('should contain correct current customer wallet and properties', function () {
@@ -436,16 +399,6 @@ describe('request', function () {
         new Request(createFakeRequest(), createFakeRequest().customer, createFakeRequest().session);
         assert.isTrue(setCurrencyStub.calledOnce);
     });
-
-    it('should not call setCurrency when currency is a alternative currency code', function () {
-        var fakeRequest = createFakeRequest({
-            locale: 'en_US'
-        });
-        fakeRequest.session.currency.currencyCode = 'CAD';
-        new Request(fakeRequest, fakeRequest.customer, fakeRequest.session);
-        assert.isFalse(setCurrencyStub.calledOnce);
-    });
-
 
     it('should contain correct geolocation object and properties wehn co geolocation exists', function () {
         var fakeRequest = createFakeRequest();

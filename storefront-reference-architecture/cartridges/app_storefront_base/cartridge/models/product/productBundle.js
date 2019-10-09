@@ -37,7 +37,6 @@ module.exports = function bundleProduct(product, apiProduct, options, factory) {
     decorators.bundledProducts(product, apiProduct, options.quantity, factory);
     decorators.bundleReadyToOrder(product);
     decorators.raw(product, apiProduct);
-    decorators.template(product, apiProduct);
 
     return product;
 };

@@ -91,7 +91,7 @@
     }
 
     .promotions {
-        text-align: left;
+        text-align: center;
         color: $red;
     }
 
@@ -109,16 +109,5 @@
 
     .pre-cart-products {
         margin-right: 0.125em;
-    }
-
-    .color-attribute {
-        border: none;
-        padding: 0;
-        background: none;
-    }
-
-    .non-input-label {
-        display: block;
-        margin-bottom: 0.5rem;
     }
 }

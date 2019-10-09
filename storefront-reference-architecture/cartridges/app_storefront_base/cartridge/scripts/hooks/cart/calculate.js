@@ -1,13 +1,14 @@
 /* eslint-disable */
 'use strict';
 
-/** @module calculate */
 /**
+ * @module calculate.js
+ *
  * This javascript file implements methods (via Common.js exports) that are needed by
  * the new (smaller) CalculateCart.ds script file.  This allows OCAPI calls to reference
  * these tools via the OCAPI 'hook' mechanism
+ *
  */
-
 var HashMap = require('dw/util/HashMap');
 var PromotionMgr = require('dw/campaign/PromotionMgr');
 var ShippingMgr = require('dw/order/ShippingMgr');
@@ -238,7 +239,7 @@ exports.calculateTax = function(basket) {
 
         if (tax) {
             if (tax.amount) {
-                lineItem.updateTaxAmount(tax.value);
+                lineItem.updateTaxAmoun(tax.value);
                 if (lineItem instanceof dw.order.ShippingLineItem) {
                     totalShippingGrossPrice += lineItem.getAdjustedGrossPrice();
                     totalShippingNetPrice += lineItem.getAdjustedNetPrice();
@@ -261,7 +262,7 @@ exports.calculateTax = function(basket) {
     // this includes order-level shipping price adjustments
     if (!basket.getPriceAdjustments().empty || !basket.getShippingPriceAdjustments().empty) {
         if (collections.first(basket.getPriceAdjustments(), function (priceAdjustment) {
-            return taxesMap[priceAdjustment.UUID] === null;
+            return taxesMap[priceAdjusmtnet.UUID] === null;
         }) || collections.first(basket.getShippingPriceAdjustments(), function (shippingPriceAdjustment) {
             return taxesMap[shippingPriceAdjustment.UUID] === null;
         })) {

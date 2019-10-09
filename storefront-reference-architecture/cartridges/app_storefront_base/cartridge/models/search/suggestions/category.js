@@ -3,6 +3,7 @@
 var URLUtils = require('dw/web/URLUtils');
 var endpoint = 'Search-Show';
 
+
 /**
  * @constructor
  * @classdesc CategorySuggestions class
@@ -31,9 +32,7 @@ function CategorySuggestions(suggestions, maxItems) {
             this.categories.push({
                 name: category.displayName,
                 imageUrl: category.image ? category.image.url : '',
-                url: URLUtils.url(endpoint, 'cgid', category.ID),
-                parentID: category.parent.ID,
-                parentName: category.parent.displayName
+                url: URLUtils.url(endpoint, 'cgid', category.ID)
             });
         }
     }

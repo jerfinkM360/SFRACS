@@ -7,15 +7,11 @@ server.get('Start', function (req, res, next) {
 
     var redirect = URLRedirectMgr.redirect;
     var location = redirect ? redirect.location : null;
-    var redirectStatus = redirect ? redirect.getStatus() : null;
 
     if (!location) {
-        res.setStatusCode(404);
+        res.setStatus(404);
         res.render('error/notFound');
     } else {
-        if (redirectStatus) {
-            res.setRedirectStatus(redirectStatus);
-        }
         res.redirect(location);
     }
 

@@ -81,6 +81,7 @@ dt {
     background: linear-gradient($grey3, $grey5); /* Standard syntax */
 }
 
-.form-control.is-invalid {
-    background-image: none;
+.modal-open {
+    position: fixed;
+    width: 100%;
 }

@@ -19,19 +19,15 @@ function Images(product, imageConfig) {
                 result = [{
                     alt: firstImage.alt,
                     url: firstImage.URL.toString(),
-                    title: firstImage.title,
-                    index: '0',
-                    absURL: firstImage.absURL.toString()
+                    title: firstImage.title
                 }];
             }
         } else {
-            result = collections.map(images, function (image, index) {
+            result = collections.map(images, function (image) {
                 return {
                     alt: image.alt,
                     url: image.URL.toString(),
-                    index: index.toString(),
-                    title: image.title,
-                    absURL: image.absURL.toString()
+                    title: image.title
                 };
             });
         }

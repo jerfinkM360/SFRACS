@@ -21,66 +21,49 @@
 
         <div class="col-12 col-sm-6">
             <!-- Product Name -->
-            <div class="row">
-                <div class="col">
-                    <h1 class="product-name hidden-sm-down">${product.productName}</h1>
-                </div>
-            </div>
+            <h1 class="product-name hidden-sm-down">${product.productName}</h1>
 
-            <div class="row">
-                <div class="col">
-                    <isinclude template="product/components/pidRating" />
-                </div>
-            </div>
+            <isinclude template="product/components/pidRating" />
 
-            <div class="attributes">
+            <div class="row justify-content-center">
                 <!-- Attributes and Quantity -->
-                <isinclude template="product/components/mainAttributes" />
+                <div class="col-md-10 col-12">
+                    <isinclude template="product/components/mainAttributes" />
 
-                <isloop items="${product.variationAttributes}" var="attr" status="attributeStatus">
-                    <div data-attr="${attr.id}" class="row swatch">
-                        <div class="col">
+                    <isloop items="${product.variationAttributes}" var="attr" status="attributeStatus">
+                        <div data-attr="${attr.id}" class="swatch">
                             <isinclude template="product/components/variationAttribute" />
                         </div>
-                    </div>
-                </isloop>
-
+                    </isloop>
+                </div>
 
                 <!-- Size Chart -->
                 <isif condition="${product.variationAttributes && product.sizeChartId}">
-                    <div class="row">
-                        <span class="col-12 col-md-10 size-chart">
+                    <span class="col-12 col-md-10 size-chart">
                         <isinclude template="product/components/sizeChart" />
                     </span>
-                    </div>
                 </isif>
 
                 <!-- Product Options -->
                 <isif condition="${product.options.length}">
                     <isloop items="${product.options}" var="option">
-                        <div class="row">
-                            <div class="col">
-                                <isif condition="${option.selectedValueId !== ''}">
-                                    <isinclude template="product/components/optionStatic" />
-                                </isif>
-                            </div>
-                        </div>
+                        <isif condition="${option.selectedValueId !== ''}">
+                            <isinclude template="product/components/optionStatic" />
+                        </isif>
                     </isloop>
                 </isif>
 
-                <!-- Product Availability -->
-                <isinclude template="product/components/productAvailability" />
-
-                <div class="row">
-                    <div class="col-12">
-                        <hr>
-                    </div>
+                <!-- Availability -->
+                <div class="col-12 col-md-10 availability product-availability" data-ready-to-order="${product.readyToOrder}" data-available="${product.available}">
+                    <isinclude template="product/components/availability" />
                 </div>
 
-                <div class="row">
-                    <div class="col-12">
-                        <isinclude template="product/components/quantityStatic">
-                    </div>
+                <div class="col-md-10 col-12">
+                    <hr>
+                </div>
+
+                <div class="col-md-10 col-12">
+                    <isinclude template="product/components/quantityStatic">
                 </div>
             </div>
         </div>

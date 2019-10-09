@@ -1,3 +1,1 @@
-<div class="row">
-    <isinclude template="product/components/availability" />
-</div>
+<isinclude template="product/components/availability" />

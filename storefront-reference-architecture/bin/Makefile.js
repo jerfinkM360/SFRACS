@@ -71,16 +71,16 @@ target.compileFonts = function () {
 
 target.functional = function (args) {
     var defaults = {
-        baseUrl: 'https://' + getSandboxUrl() + '/s/RefArch',
+        baseUrl: 'http://' + getSandboxUrl() + '/s/MobileFirst',
         client: 'chrome'
     };
 
     var configFile = 'test/functional/webdriver/wdio.conf.js';
     if(args.indexOf('appium') > -1) {
         args.splice(args.indexOf('appium'), 1);
-        configFile = 'test/functional/webdriver/wdio.appium.js';
+        configFile = 'test/functional/webdriver/wdio.appium.js'
         defaults = {
-            baseUrl: 'https://' + getSandboxUrl() + '/s/RefArch'
+            baseUrl: 'http://' + getSandboxUrl() + '/s/MobileFirst'
         }
     }
 
@@ -102,6 +102,28 @@ target.functional = function (args) {
         console.log(chalk.green('Stopping Selenium Server'));
         process.exit(code);
     });
+};
+
+target.integration = function (args) {
+    var defaults = {
+        baseUrl: 'https://' + getSandboxUrl() + '/on/demandware.store/Sites-MobileFirst-Site/en_US'
+    };
+
+    var options = getOptions(defaults, args);
+    var optionsString = getOptionsString(options);
+
+    if (Object.keys(options).length < 2) {
+        optionsString += ' test/integration/*';
+    }
+
+    console.log(chalk.green('Running integration tests'));
+
+    var tests = spawn('./node_modules/.bin/_mocha --reporter spec ' + optionsString, { stdio: 'inherit', shell: true });
+
+    tests.on('exit', function (code) {
+        process.exit(code);
+    });
+
 };
 
 target.release = function (args) {

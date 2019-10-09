@@ -2,6 +2,8 @@
 
 .attribute {
     margin-top: 0.938em;
+    margin-right: 25%;
+    padding-right: 1em;
 
     label {
         display: block;
@@ -48,6 +50,12 @@
     padding-bottom: 0.5em;
     padding-top: 0.5em;
     text-align: center;
+}
+
+div.quantity {
+    float: right;
+    padding: 0;
+    width: 25%;
 }
 
 .cart-and-ipay {

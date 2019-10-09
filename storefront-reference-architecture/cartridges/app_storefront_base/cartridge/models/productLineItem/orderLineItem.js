@@ -34,5 +34,6 @@ module.exports = function orderLineItem(product, apiProduct, options) {
     productLineItemDecorators.options(product, options.lineItemOptions);
     productLineItemDecorators.bonusProductLineItemUUID(product, options.lineItem);
     productLineItemDecorators.preOrderUUID(product, options.lineItem);
+    productLineItemDecorators.discountBonusLineItems(product, options.lineItem.UUID);
     return product;
 };

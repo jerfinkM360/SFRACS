@@ -9,6 +9,10 @@
             "script": "./cartridge/scripts/hooks/cart/calculate.js"
         },
         {
+            "name": "app.basket.taxes",
+            "script": "./cartridge/scripts/hooks/taxes.js"
+        },
+        {
             "name": "dw.order.calculateTax",
             "script": "./cartridge/scripts/hooks/cart/calculate.js"
         },
@@ -21,16 +25,16 @@
             "script": "./cartridge/scripts/hooks/payment/processor/basic_credit"
         },
         {
-            "name": "app.payment.form.processor.basic_credit",
-            "script": "./cartridge/scripts/hooks/payment/processor/basic_credit_form_processor"
+            "name": "app.validate.basket",
+            "script": "./cartridge/scripts/hooks/validateBasket"
         },
         {
-            "name": "app.payment.form.processor.default_form_processor",
-            "script": "./cartridge/scripts/hooks/payment/processor/default_form_processor"
+            "name": "app.validate.order",
+            "script": "./cartridge/scripts/hooks/validateOrder"
         },
         {
-            "name": "app.experience.editmode",
-            "script": "./cartridge/experience/hooks.js"
+            "name": "app.fraud.detection",
+            "script": "./cartridge/scripts/hooks/fraudDetection"
         }
     ]
 }

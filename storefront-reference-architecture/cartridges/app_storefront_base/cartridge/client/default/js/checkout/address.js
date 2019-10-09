@@ -172,8 +172,7 @@ module.exports = {
                 $('body').trigger('checkout:clearBillingForm');
                 var $option = $($el.parents('form').find('.addressSelector option')[0]);
                 $option.attr('value', 'new');
-                var $newTitle = $('#dwfrm_billing input[name=localizedNewAddressTitle]').val();
-                $option.text($newTitle);
+                $option.text('New Address');
                 $option.prop('selected', 'selected');
                 $el.parents('[data-address-mode]').attr('data-address-mode', 'new');
             } else {

@@ -14,12 +14,9 @@ server.get(
         var URLUtils = require('dw/web/URLUtils');
         var Resource = require('dw/web/Resource');
 
-        var target = req.querystring.rurl || 1;
-
         var rememberMe = false;
         var userName = '';
-        var actionUrl = URLUtils.url('Account-Login', 'rurl', target);
-        var createAccountUrl = URLUtils.url('Account-SubmitRegistration', 'rurl', target).relative().toString();
+        var actionUrl = URLUtils.url('Account-Login');
         var navTabValue = req.querystring.action;
 
         if (req.currentCustomer.credentials) {
@@ -44,8 +41,7 @@ server.get(
             actionUrl: actionUrl,
             profileForm: profileForm,
             breadcrumbs: breadcrumbs,
-            oAuthReentryEndpoint: 1,
-            createAccountUrl: createAccountUrl
+            oAuthReentryEndpoint: 1
         });
 
         next();

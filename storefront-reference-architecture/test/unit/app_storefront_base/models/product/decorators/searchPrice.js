@@ -18,8 +18,8 @@ var pricModelMock = {
 };
 
 var searchHitMock = {
-    minPrice: { value: 100, available: true },
-    maxPrice: { value: 100, available: true },
+    minPrice: { value: 100 },
+    maxPrice: { value: 100 },
     firstRepresentedProduct: {
         ID: 'someProduct',
         getPriceModel: stubPriceModel
@@ -45,11 +45,10 @@ describe('search price decorator', function () {
         'dw/util/ArrayList': ArrayList,
         '*/cartridge/scripts/helpers/pricing': {
             getRootPriceBook: stubRootPriceBook,
-            getPromotionPrice: function () { return { value: 50, available: true }; }
+            getPromotionPrice: function () { return { value: 50 }; }
         },
         'dw/catalog/PriceBookMgr': {
-            setApplicablePriceBooks: function () {},
-            getApplicablePriceBooks: function () {}
+            setApplicablePriceBooks: function () {}
         },
         '*/cartridge/models/price/default': stubDefaultPrice,
         '*/cartridge/models/price/range': stubRangePrice
@@ -60,40 +59,41 @@ describe('search price decorator', function () {
         stubDefaultPrice.reset();
     });
 
-    it('should create a property on the passed in object called price with no active promotions', function () {
+    it('should create a property on the passed in object called price', function () {
         var object = {};
         stubPriceModel.returns(pricModelMock);
         stubRootPriceBook.returns({ ID: 'someOtherPriceBook' });
         searchPrice(object, searchHitMock, noActivePromotionsMock, getSearchHit);
 
-        assert.isTrue(stubDefaultPrice.withArgs({ value: 100, available: true }).calledOnce);
+        assert.isTrue(stubDefaultPrice.withArgs({ value: 100 }).calledOnce);
     });
 
-    it('should create a property on the passed in object called price when there are active promotion but they do not match', function () {
+    it('should create a property on the passed in object called price', function () {
         var object = {};
         stubPriceModel.returns(pricModelMock);
         stubRootPriceBook.returns({ ID: 'someOtherPriceBook' });
         searchPrice(object, searchHitMock, activePromotionsNoMatchMock, getSearchHit);
 
-        assert.isTrue(stubDefaultPrice.withArgs({ value: 100, available: true }).calledOnce);
+        assert.isTrue(stubDefaultPrice.withArgs({ value: 100 }).calledOnce);
     });
 
-    it('should create a property on the passed in object called price when there active promotions that do match', function () {
+    it('should create a property on the passed in object called price', function () {
         var object = {};
         stubPriceModel.returns(pricModelMock);
         stubRootPriceBook.returns({ ID: 'someOtherPriceBook' });
         searchPrice(object, searchHitMock, activePromotionsMock, getSearchHit);
 
-        assert.isTrue(stubDefaultPrice.withArgs({ value: 50, available: true }, { value: 100, available: true }).calledOnce);
+        assert.isTrue(stubDefaultPrice.withArgs({ value: 50 }, { value: 100 }).calledOnce);
     });
 
+    // ==========
     it('should create a property on the passed in object called price', function () {
         var object = {};
         stubPriceModel.returns({});
         stubRootPriceBook.returns({ ID: 'someOtherPriceBook' });
         searchPrice(object, searchHitMock, activePromotionsMock, getSearchHit);
 
-        assert.isTrue(stubDefaultPrice.withArgs({ value: 50, available: true }).calledOnce);
+        assert.isTrue(stubDefaultPrice.withArgs({ value: 50 }).calledOnce);
     });
 
     it('should create a property on the passed in object called price', function () {
@@ -102,8 +102,9 @@ describe('search price decorator', function () {
         stubRootPriceBook.returns({ ID: 'somePriceBook' });
         searchPrice(object, searchHitMock, activePromotionsMock, getSearchHit);
 
-        assert.isTrue(stubDefaultPrice.withArgs({ value: 50, available: true }, { value: 100, available: true }).calledOnce);
+        assert.isTrue(stubDefaultPrice.withArgs({ value: 50 }).calledOnce);
     });
+    // ==========
 
     it('should create a property on the passed in object called price', function () {
         var object = {};
@@ -112,6 +113,6 @@ describe('search price decorator', function () {
         searchHitMock.maxPrice.value = 200;
         searchPrice(object, searchHitMock, noActivePromotionsMock, getSearchHit);
 
-        assert.isTrue(stubRangePrice.withArgs({ value: 100, available: true }, { value: 200, available: true }).calledOnce);
+        assert.isTrue(stubRangePrice.withArgs({ value: 100 }, { value: 200 }).calledOnce);
     });
 });

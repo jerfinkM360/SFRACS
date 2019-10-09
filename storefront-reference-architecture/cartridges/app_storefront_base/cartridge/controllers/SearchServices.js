@@ -4,8 +4,6 @@ var server = require('server');
 
 var cache = require('*/cartridge/scripts/middleware/cache');
 
-var Resource = require('dw/web/Resource');
-
 server.get('GetSuggestions', cache.applyDefaultCache, function (req, res, next) {
     var SuggestModel = require('dw/suggest/SuggestModel');
     var CategorySuggestions = require('*/cartridge/models/search/suggestions/category');
@@ -42,11 +40,6 @@ server.get('GetSuggestions', cache.applyDefaultCache, function (req, res, next) 
             || recentSuggestions.available
             || popularSuggestions.available
             || brandSuggestions.available) {
-            var total = productSuggestions.products.length + contentSuggestions.contents.length
-                + categorySuggestions.categories.length
-                + recentSuggestions.phrases.length
-                + popularSuggestions.phrases.length
-                + brandSuggestions.phrases.length;
             res.render('search/suggestions', {
                 suggestions: {
                     product: productSuggestions,
@@ -54,8 +47,7 @@ server.get('GetSuggestions', cache.applyDefaultCache, function (req, res, next) 
                     content: contentSuggestions,
                     recent: recentSuggestions,
                     popular: popularSuggestions,
-                    brand: brandSuggestions,
-                    message: Resource.msgf('label.header.search.result.count.msg', 'common', null, ['' + total])
+                    brand: brandSuggestions
                 }
             });
         } else {

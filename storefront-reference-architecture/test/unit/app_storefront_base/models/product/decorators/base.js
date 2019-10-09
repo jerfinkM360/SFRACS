@@ -4,20 +4,11 @@ var assert = require('chai').assert;
 
 var productModelMock = {
     ID: 'some ID',
-    name: 'some name',
-    UUID: 'some UUID',
-    brand: 'some brand'
+    name: 'some name'
 };
 
 describe('product base decorator', function () {
     var base = require('../../../../../../cartridges/app_storefront_base/cartridge/models/product/decorators/base');
-
-    it('should create uuid property for passed in object', function () {
-        var object = {};
-        base(object, productModelMock, 'variant');
-
-        assert.equal(object.uuid, 'some UUID');
-    });
 
     it('should create id property for passed in object', function () {
         var object = {};
@@ -38,12 +29,5 @@ describe('product base decorator', function () {
         base(object, productModelMock, 'variant');
 
         assert.equal(object.productType, 'variant');
-    });
-
-    it('should create brand property for passed in object', function () {
-        var object = {};
-        base(object, productModelMock, 'variant');
-
-        assert.equal(object.brand, 'some brand');
     });
 });

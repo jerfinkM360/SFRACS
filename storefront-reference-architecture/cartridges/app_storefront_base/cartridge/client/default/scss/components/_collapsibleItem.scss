@@ -2,7 +2,8 @@
 
     @include media-breakpoint-down($size) {
         .collapsible-#{$size} {
-            .title {
+            .title,
+            .card-header {
                 line-height: 2.5rem; /* 40/16 */
 
                 @include clearfix;
@@ -20,7 +21,8 @@
             }
 
             &.active {
-                .title::after {
+                .title::after,
+                .card-header::after {
                     content: "\f077";
                     margin-top: -0.125em; /* 2/16 */
                 }
@@ -33,11 +35,9 @@
         }
     }
 
-    .container div.collapsible-#{$size} button.title {
+    .container div.collapsible-#{$size} a.title {
         color: $black;
         text-decoration: none;
-        border: none;
-        background-color: transparent;
 
         &:hover {
             text-decoration: none;

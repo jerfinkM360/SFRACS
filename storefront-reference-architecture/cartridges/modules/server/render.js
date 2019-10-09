@@ -2,7 +2,6 @@
 /* global XML */
 
 var isml = require('dw/template/ISML');
-var PageMgr = require('dw/experience/PageMgr');
 
 /**
  * Render an ISML template
@@ -78,17 +77,6 @@ function xml(viewData, response) {
 }
 
 /**
- * Render a page designer page
- * @param {string} pageID - Path to an ISML template
- * @param {Object} data - Data to be passed
- * @param {Object} response - Response object
- * @returns {void}
- */
-function page(pageID, data, response) {
-    response.base.writer.print(PageMgr.renderPage(pageID, JSON.stringify(data)));
-}
-
-/**
  * Determines what to render
  * @param {Object} res - Response object
  * @returns {void}
@@ -106,9 +94,6 @@ function applyRenderings(res) {
                         break;
                     case 'xml':
                         xml(res.viewData, res);
-                        break;
-                    case 'page':
-                        page(element.page, res.viewData, res);
                         break;
                     default:
                         throw new Error('Cannot render template without name or data');

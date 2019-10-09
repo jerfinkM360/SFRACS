@@ -27,8 +27,7 @@ function createGeoLocationObject(storesObject) {
     var template = 'storeLocator/storeInfoWindow';
     return Object.keys(storesObject).map(function (key) {
         var store = storesObject[key];
-        var storeModel = new StoreModel(store);
-        context = { store: storeModel };
+        context = { store: store };
         return {
             name: store.name,
             latitude: store.latitude,

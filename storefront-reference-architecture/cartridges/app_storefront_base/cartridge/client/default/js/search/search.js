@@ -21,9 +21,10 @@ function updateDom($results, selector) {
 function handleRefinements($results) {
     $('.refinement.active').each(function () {
         $(this).removeClass('active');
-        var activeDiv = $results.find('.' + $(this)[0].className.replace(/ /g, '.'));
-        activeDiv.addClass('active');
-        activeDiv.find('button.title').attr('aria-expanded', 'true');
+
+        $results
+            .find('.' + $(this)[0].className.replace(/ /g, '.'))
+            .addClass('active');
     });
 
     updateDom($results, '.refinements');
@@ -99,23 +100,13 @@ module.exports = {
         // Display refinements bar when Menu icon clicked
         $('.container').on('click', 'button.filter-results', function () {
             $('.refinement-bar, .modal-background').show();
-            $('.refinement-bar').siblings().attr('aria-hidden', true);
-            $('.refinement-bar').closest('.row').siblings().attr('aria-hidden', true);
-            $('.refinement-bar').closest('.tab-pane.active').siblings().attr('aria-hidden', true);
-            $('.refinement-bar').closest('.container.search-results').siblings().attr('aria-hidden', true);
-            $('.refinement-bar .close').focus();
         });
     },
 
-    closeRefinements: function () {
+    closeRefinments: function () {
         // Refinements close button
         $('.container').on('click', '.refinement-bar button.close, .modal-background', function () {
             $('.refinement-bar, .modal-background').hide();
-            $('.refinement-bar').siblings().attr('aria-hidden', false);
-            $('.refinement-bar').closest('.row').siblings().attr('aria-hidden', false);
-            $('.refinement-bar').closest('.tab-pane.active').siblings().attr('aria-hidden', false);
-            $('.refinement-bar').closest('.container.search-results').siblings().attr('aria-hidden', false);
-            $('.btn.filter-results').focus();
         });
     },
 
@@ -123,10 +114,6 @@ module.exports = {
         // Close refinement bar and hide modal background if user resizes browser
         $(window).resize(function () {
             $('.refinement-bar, .modal-background').hide();
-            $('.refinement-bar').siblings().attr('aria-hidden', false);
-            $('.refinement-bar').closest('.row').siblings().attr('aria-hidden', false);
-            $('.refinement-bar').closest('.tab-pane.active').siblings().attr('aria-hidden', false);
-            $('.refinement-bar').closest('.container.search-results').siblings().attr('aria-hidden', false);
         });
     },
 
@@ -182,7 +169,7 @@ module.exports = {
         // Handle refinement value selection and reset click
         $('.container').on(
             'click',
-            '.refinements li button, .refinement-bar button.reset, .filter-value button, .swatch-filter button',
+            '.refinements li a, .refinement-bar a.reset, .filter-value a, .swatch-filter a',
             function (e) {
                 e.preventDefault();
                 e.stopPropagation();
@@ -190,10 +177,10 @@ module.exports = {
                 $.spinner().start();
                 $(this).trigger('search:filter', e);
                 $.ajax({
-                    url: $(this).data('href'),
+                    url: e.currentTarget.href,
                     data: {
                         page: $('.grid-footer').data('page-number'),
-                        selectedUrl: $(this).data('href')
+                        selectedUrl: e.currentTarget.href
                     },
                     method: 'GET',
                     success: function (response) {
@@ -217,7 +204,7 @@ module.exports = {
 
         // Display the next page of content results from the search
         $('.container').on('click', '.show-more-content button', function () {
-            getContent($(this), $('#content-search-results'));
+            getContent($(this), $('#content-search-results .result-count'));
             $('.show-more-content').remove();
         });
     }
