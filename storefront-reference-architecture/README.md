@@ -3,19 +3,14 @@
 This is a repository for the Storefront Reference Architecture reference application.
 
 Storefront Reference Architecture has a base cartridge (`app_storefront_base`) provided by Commerce Cloud that is never directly customized or edited. Instead, customization cartridges are layered on top of the base cartridge. This change is intended to allow for easier adoption of new features and bug fixes.
-Storefront Reference Architecture supplies an [plugin_applepay](https://bitbucket.org/demandware/plugin-applepay) plugin cartridge to demonstrate how to layer customizations for the reference application.
+Storefront Reference Architecture supplies an [plugin_applepay](https://github.com/SalesforceCommerceCloud/plugin-applepay) plugin cartridge to demonstrate how to layer customizations for the reference application.
 
 Your feedback on the ease-of-use and limitations of this new architecture is invaluable during the developer preview. Particularly, feedback on any issues you encounter or workarounds you develop for efficiently customizing the base cartridge without editing it directly.
 
 
-# What's New
+# The latest version
 
-The latest version of SFRA is 3.0.0, which contains the following updates:
-
-* Multiship: a single basket filled with multiple products can now be shipped to multiple locations.
-* Fraud Detection Hook: a hook has been added that supports customized fraud detection.
-* Localization: several properties file resources were updated for French, Italian, Japanese, and Simplified Chinese.
-* SFRA and SGJC Data: a single sandbox can now simultaneously include sites for both SiteGenesis Javascript Controllers (SGJC) and Storefront Reference Architecture (SFRA) without any resulting data conflicts.
+The latest version of SFRA is 4.3.0
 
 # Getting Started
 
@@ -37,9 +32,9 @@ The latest version of SFRA is 3.0.0, which contains the following updates:
 
 5 Run `npm run uploadCartridge` command that would upload `app_storefront_base` and `modules` cartridges to the sandbox you specified in dw.json file.
 
-6 Use https://bitbucket.org/demandware/storefrontdata to zip and import site date on your sandbox.
+6 Use https://github.com/SalesforceCommerceCloud/storefrontdata to zip and import site date on your sandbox.
 
-7 Add the `app_storefront_base` cartridge to your cartridge path.
+7 Add the `app_storefront_base` cartridge to your cartridge path in _Administration >  Sites >  Manage Sites > RefArch - Settings_ (Note: This should already be populated by the sample data in Step 6).
 
 8 You should now be ready to navigate to and use your site.
 
@@ -79,9 +74,9 @@ You can run `npm test` to execute all unit tests in the project. Run `npm run co
 3. Navigate to this directory on your local machine, open up the index.html file. This file contains a detailed report.
 
 ## Running integration tests
-Integration tests are located in the `sfra/test/integration` directory.
+Integration tests are located in the `storefront-reference-architecture/test/integration` directory.
 
-To run all integration tests you can use the following command:
+To run integration tests you can use the following command:
 
 ```
 npm run test:integration
@@ -90,33 +85,17 @@ npm run test:integration
 **Note:** Please note that short form of this command will try to locate URL of your sandbox by reading `dw.json` file in the root directory of your project. If you don't have `dw.json` file, integration tests will fail.
 sample dw.json file (this file needs to be in the root of your project)
 {
-    "hostname": "dev03-automation02-qa.demandware.net"
+    "hostname": "devxx-sitegenesis-dw.demandware.net"
 }
-
-```
-npm run test:integration test/integration/storeLocator
-```
 
 You can also supply URL of the sandbox on the command line:
 
 ```
-npm run test:integration -- --baseUrl https://hostname/on/demandware.store/Sites-RefArch-Site/en_US
+npm run test:integration -- --baseUrl devxx-sitegenesis-dw.demandware.net
 ```
 
-To run individual tests, such as the `test1.js` in the `storeLocator` subsuite:
-
-```
-npm run test:integration -- --baseUrl https://hostname/on/demandware.store/Sites-RefArch-Site/en_US test/integration/storeLocator/test1.js
-```
-
-To run tests in a subsuite, such as the storeLocator subsuite:
-
-```
-npm run test:integration -- --baseUrl https://hostname/on/demandware.store/Sites-RefArch-Site/en_US test/integration/storeLocator
-```
+# [Contributing to SFRA](./CONTRIBUTING.md)
 
 
-
-# [Contributing to MFRA](./CONTRIBUTING.md)
-
-
+#Page Designer Components for Storefront Reference Architecture
+See: [Page Designer Components](./page-designer-components.md)

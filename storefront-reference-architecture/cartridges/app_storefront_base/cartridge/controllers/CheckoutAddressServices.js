@@ -91,7 +91,7 @@ server.post(
             }
             res.json({
                 form: form,
-                fieldErrors: shippingFormErrors,
+                fieldErrors: [shippingFormErrors],
                 serverErrors: [],
                 error: true
             });
@@ -108,7 +108,7 @@ server.post(
             };
 
             if (Object.prototype.hasOwnProperty
-                    .call(form.shippingAddress.addressFields, 'states')) {
+                .call(form.shippingAddress.addressFields, 'states')) {
                 result.address.stateCode =
                     form.shippingAddress.addressFields.states.stateCode.value;
             }
@@ -118,7 +118,7 @@ server.post(
 
             result.shippingMethod =
                 form.shippingAddress.shippingMethodID.value ?
-                '' + form.shippingAddress.shippingMethodID.value : null;
+                    '' + form.shippingAddress.shippingMethodID.value : null;
             result.form = form;
 
             result.isGift = form.shippingAddress.isGift.checked;
@@ -194,7 +194,7 @@ server.post(
                 }
             }
 
-            if (shipment) {
+            if (shipment && viewData && !!viewData.isGift) {
                 var giftResult = COHelpers.setGift(shipment, viewData.isGift, viewData.giftMessage);
 
                 if (giftResult.error) {

@@ -12,6 +12,7 @@ function Response(response) {
     this.view = null;
     this.viewData = {};
     this.redirectUrl = null;
+    this.redirectStatus = null;
     this.messageLog = [];
     this.base = response;
     this.cachePeriod = null;
@@ -48,7 +49,7 @@ Response.prototype = {
     /**
      * Stores template name and data for rendering at the later time
      * @param {string} name - Path to a template
-     * @param {Object} data - Data to be passed ot the template
+     * @param {Object} data - Data to be passed to the template
      * @returns {void}
      */
     render: function render(name, data) {
@@ -80,12 +81,31 @@ Response.prototype = {
         appendRenderings(this.renderings, { type: 'render', subType: 'xml' });
     },
     /**
+     * Stores data to be rendered as a page designer page
+     * @param {string} page - ID of the page to be rendered
+     * @param {Object} data - Data to be passed to the template
+     * @returns {void}
+     */
+    page: function (page, data) {
+        this.page = page;
+        this.viewData = assign(this.viewData, data);
+        appendRenderings(this.renderings, { type: 'render', subType: 'page', page: page });
+    },
+    /**
      * Redirects to a given url right away
      * @param {string} url - Url to be redirected to
      * @returns {void}
      */
     redirect: function redirect(url) {
         this.redirectUrl = url;
+    },
+    /**
+     * Sets an optional redirect status, standard cases being 301 or 302.
+     * @param {string} redirectStatus - HTTP redirect status code
+     * @returns {void}
+     */
+    setRedirectStatus: function setRedirectStatus(redirectStatus) {
+        this.redirectStatus = redirectStatus;
     },
     /**
      * Get data that was setup for a template
